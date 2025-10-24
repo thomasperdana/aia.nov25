@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Assisted Bible Study - AI Academy November 2025</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6a5acd;
+            --secondary-color: #4b0082;
+            --accent-color: #9370db;
+            --light-text: #f8f9fa;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .hero-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/seed/bible-ai/1920/600.jpg');
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(106, 90, 205, 0.3);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--accent-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 15px;
+            width: 45%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            border: 4px solid var(--dark-bg);
+            z-index: 1;
+        }
+        
+        .level-card {
+            background: linear-gradient(135deg, var(--card-bg), rgba(106, 90, 205, 0.1));
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .level-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--accent-color);
+        }
+        
+        .level-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        
+        .ai-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .ai-node {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .ai-connector {
+            height: 3px;
+            background-color: var(--accent-color);
+            width: 100px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ai-connector::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 10px solid var(--accent-color);
+        }
+        
+        .persona-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s;
+        }
+        
+        .persona-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, rgba(106, 90, 205, 0.2), rgba(75, 0, 130, 0.2));
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent-color);
+            font-style: italic;
+        }
+        
+        .footer {
+            background-color: var(--secondary-color);
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+        
+        .accordion-button {
+            background-color: var(--card-bg);
+            color: var(--light-text);
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .accordion-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .timeline-dot {
+                left: 30px;
+            }
+            
+            .ai-diagram {
+                flex-direction: column;
+            }
+            
+            .ai-connector {
+                width: 3px;
+                height: 50px;
+                margin: 20px 0;
+            }
+            
+            .ai-connector::after {
+                top: 100%;
+                left: -4px;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 10px solid var(--accent-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-brain me-2"></i>AI Academy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#session-plan">Session Plan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#levels">Levels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#qa">Q&A</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">AI-Assisted Bible Study</h1>
+            <p class="lead mb-4">AI Academy — November 2025</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="quote-box">
+                        <p class="fs-4">"Leverage AI for the mechanics; rely on the Holy Spirit for illumination and transformation."</p>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-4">
+                <i class="fas fa-user me-2"></i>Presenter: Thomas Perdana
+                <a href="https://about.me/thomas.perdana" target="_blank" class="ms-2 text-light">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Session Plan Section -->
+    <section id="session-plan" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Session Plan & Timing</h2>
+            <p class="lead mb-5">In 10 minutes we will:</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Core principle</h5>
+                        <p class="mb-0">1 min</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Journey overview</h5>
+                        <p class="mb-0">30 sec</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Levels 1–2: Prompts that work</h5>
+                        <p class="mb-0">2 min</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Level 3: Inductive method</h5>
+                        <p class="mb-0">2.5 min</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Level 4: Two-AI collaboration</h5>
+                        <p class="mb-0">1.5 min</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Level 5: Expert personas + Master Exegete</h5>
+                        <p class="mb-0">1.5 min</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h5>Level 6: Future applications</h5>
+                        <p class="mb-0">1 min</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <div class="card d-inline-block p-4">
+                    <h4>Resources + Q&A</h4>
+                    <p class="fs-3 mb-0">5 min</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Principle Section -->
+    <section class="py-5" style="background-color: rgba(106, 90, 205, 0.1);">
+        <div class="container">
+            <h2 class="section-title">Core Principle: AI = Assistant, NOT Substitute</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card p-4 h-100">
+                        <h4 class="mb-3 text-center"><i class="fas fa-robot me-2"></i>AI Role</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Assists with mechanics of study</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Helps with language, context, structure</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Processes information quickly</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Guides without concluding</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Informs and explains theology</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-4 h-100">
+                        <h4 class="mb-3 text-center"><i class="fas fa-dove me-2"></i>Holy Spirit Role</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Illuminates the heart</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Leads to personal revelation</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Transforms the heart</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Guides to obedience</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Essential for spiritual disciplines</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="fs-5">John 16:13-14</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Journey: 6 Levels Section -->
+    <section id="levels" class="py-5">
+        <div class="container">
+            <h2 class="section-title">The Journey: 6 Levels of Progress</h2>
+            
+            <!-- Level 1 -->
+            <div class="level-card">
+                <div class="level-number">1</div>
+                <h3>Starting Simple — Basic Prompt</h3>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5>Example:</h5>
+                        <div class="card p-3">
+                            <code>"Bible Study on John 3:16"</code>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Why it underperforms:</h5>
+                        <ul>
+                            <li>Vague goal → generic output</li>
+                            <li>No method → random structure</li>
+                            <li>No constraints → AI concludes for you</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 2 -->
+            <div class="level-card">
+                <div class="level-number">2</div>
+                <h3>Adding Specificity — Clearer Intent</h3>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5>Improved prompt:</h5>
+                        <div class="card p-3">
+                            <code>"Bible Study on John 3:16 (KJV). Ask me questions and do not make conclusions unless I ask."</code>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Why it's better:</h5>
+                        <ul>
+                            <li>Names translation and passage</li>
+                            <li>Defines AI's role (guide, not preacher)</li>
+                            <li>Protects your agency (no unauthorized conclusions)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 3 -->
+            <div class="level-card">
+                <div class="level-number">3</div>
+                <h3>The Inductive Method</h3>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 text-center">
+                            <h5 class="text-primary">Observation</h5>
+                            <p class="mb-0">What does it say?</p>
+                            <ul class="list-unstyled mt-2">
+                                <li>• Who speaks?</li>
+                                <li>• To whom?</li>
+                                <li>• Key words/verbs?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 text-center">
+                            <h5 class="text-primary">Interpretation</h5>
+                            <p class="mb-0">What does it mean?</p>
+                            <ul class="list-unstyled mt-2">
+                                <li>• Original audience?</li>
+                                <li>• Literary context?</li>
+                                <li>• Word meanings?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 text-center">
+                            <h5 class="text-primary">Application</h5>
+                            <p class="mb-0">What should I do?</p>
+                            <ul class="list-unstyled mt-2">
+                                <li>• Timeless principle</li>
+                                <li>• Personal practice</li>
+                                <li>• Communal practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h5>Inductive Prompt Template:</h5>
+                    <div class="card p-3">
+                        <code>"Act as my guide for an Inductive Bible Study of John 3:16 (KJV).<br>
+                        1) Observation: Ask me only text-based questions first.<br>
+                        2) Interpretation: Then guide with context/meaning questions.<br>
+                        3) Application: Finally, ask application questions.<br>
+                        Only ask questions; do not give conclusions unless I explicitly ask."</code>
+                    </div>
+                    <p class="mt-2"><i class="fas fa-lightbulb text-warning me-2"></i>Tip: Add "one question at a time" to pace the session.</p>
+                </div>
+            </div>
+            
+            <!-- Level 4 -->
+            <div class="level-card">
+                <div class="level-number">4</div>
+                <h3>Two-AI Collaboration</h3>
+                <div class="ai-diagram">
+                    <div class="ai-node">
+                        <i class="fas fa-user fa-2x mb-2"></i>
+                        <span>User</span>
+                    </div>
+                    <div class="ai-connector"></div>
+                    <div class="ai-node">
+                        <i class="fas fa-robot fa-2x mb-2"></i>
+                        <span>Orchestrator<br>(AI 1)</span>
+                    </div>
+                    <div class="ai-connector"></div>
+                    <div class="ai-node">
+                        <i class="fas fa-graduation-cap fa-2x mb-2"></i>
+                        <span>Expert Guide<br>(AI 2)</span>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5>Benefits:</h5>
+                        <ul>
+                            <li>Clear roles, fewer detours</li>
+                            <li>Each AI has specific responsibilities</li>
+                            <li>Stronger discipline (no premature conclusions)</li>
+                            <li>Expert Guide remains focused solely on questioning</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Scalability:</h5>
+                        <ul>
+                            <li>Swap in expert personas when needed</li>
+                            <li>Replace Expert Guide with specialized personas</li>
+                            <li>Deeper insights with specialized knowledge</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 5 -->
+            <div class="level-card">
+                <div class="level-number">5</div>
+                <h3>Expert Persona System</h3>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Word/Text Focus:</h5>
+                        <div class="persona-card">
+                            <h6><i class="fas fa-book me-2"></i>KJV Historian & Textual Critic</h6>
+                            <p class="mb-0">1611 context, manuscript sources, translation choices</p>
+                        </div>
+                        <div class="persona-card">
+                            <h6><i class="fas fa-language me-2"></i>Biblical Linguist & Etymologist</h6>
+                            <p class="mb-0">Greek/Hebrew meanings + Early Modern English nuances</p>
+                        </div>
+                        <div class="persona-card">
+                            <h6><i class="fas fa-pen-fancy me-2"></i>Literary Critic</h6>
+                            <p class="mb-0">Genre, structure, rhetorical devices, narrative flow</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="mb-3">Theology/Context/Application:</h5>
+                        <div class="persona-card">
+                            <h6><i class="fas fa-church me-2"></i>Systematic Theologian</h6>
+                            <p class="mb-0">Doctrine, cross-references, biblical unity</p>
+                        </div>
+                        <div class="persona-card">
+                            <h6><i class="fas fa-landmark me-2"></i>Cultural Historian & Archaeologist</h6>
+                            <p class="mb-0">Ancient customs, artifacts, real-world context</p>
+                        </div>
+                        <div class="persona-card">
+                            <h6><i class="fas fa-hands-helping me-2"></i>Pastor & Practical Theologian</h6>
+                            <p class="mb-0">Application, devotional insights, modern relevance</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h5>Master Exegete Prompt:</h5>
+                    <div class="card p-3">
+                        <code>"Act as a Master Biblical Scholar and KJV Exegete. Analyze [INSERT PASSAGE] weaving together:<br>
+                        original languages + KJV choices,<br>
+                        historical/cultural context,<br>
+                        literary structure,<br>
+                        doctrinal connections (with KJV cross-refs),<br>
+                        and timeless application.<br>
+                        Present as a single flowing commentary, not separate lists."</code>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 6 -->
+            <div class="level-card">
+                <div class="level-number">6</div>
+                <h3>Future Applications</h3>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 text-center">
+                            <i class="fas fa-globe-americas fa-3x mb-3 text-primary"></i>
+                            <h5>AI as Missionary</h5>
+                            <ul class="list-unstyled text-start">
+                                <li>• Multilingual gospel summaries</li>
+                                <li>• Context-aware FAQs</li>
+                                <li>• Scripture journey pathways</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 text-center">
+                            <i class="fas fa-comments fa-3x mb-3 text-primary"></i>
+                            <h5>AI as Biblical Counselor</h5>
+                            <ul class="list-unstyled text-start">
+                                <li>• Scripture-first reframing</li>
+                                <li>• Gentle guardrails (not a therapist)</li>
+                                <li>• Referral to human pastors</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 h-100 text-center">
+                            <i class="fas fa-language fa-3x mb-3 text-primary"></i>
+                            <h5>AI in Bible Translation</h5>
+                            <ul class="list-unstyled text-start">
+                                <li>• Draft assist from source texts</li>
+                                <li>• Consistency checks (terms)</li>
+                                <li>• Human-led final review</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-5" style="background-color: rgba(106, 90, 205, 0.1);">
+        <div class="container">
+            <h2 class="section-title">Free Resources</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100 text-center">
+                        <i class="fas fa-tools fa-3x mb-3 text-primary"></i>
+                        <h4>Interactive Tools</h4>
+                        <ul class="list-unstyled">
+                            <li>AI Identity Tool</li>
+                            <li>AI Identity Plus</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100 text-center">
+                        <i class="fas fa-video fa-3x mb-3 text-primary"></i>
+                        <h4>Video Tutorials</h4>
+                        <ul class="list-unstyled">
+                            <li>Bible Study Techniques</li>
+                            <li>AI Prompt Engineering</li>
+                            <li>Advanced AI Methods</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 h-100 text-center">
+                        <i class="fas fa-user fa-3x mb-3 text-primary"></i>
+                        <h4>About Thomas Perdana</h4>
+                        <p>Expert in AI-assisted biblical studies</p>
+                        <a href="https://about.me/thomas.perdana" target="_blank" class="btn btn-primary mt-2">
+                            Visit Profile <i class="fas fa-external-link-alt ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Takeaways Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title">Key Takeaways</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-check-circle text-success me-2"></i>AI assists; the Holy Spirit transforms.</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-check-circle text-success me-2"></i>Specific prompts protect your agency.</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-check-circle text-success me-2"></i>Inductive method = best default workflow.</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-check-circle text-success me-2"></i>Two-AI setup enforces roles and clarity.</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-check-circle text-success me-2"></i>Personas → Master Exegete for unified depth.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q&A Section -->
+    <section id="qa" class="py-5" style="background-color: rgba(106, 90, 205, 0.1);">
+        <div class="container">
+            <h2 class="section-title">Q&A Preparation</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How do I stop AI from preaching?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Set the no-conclusion rule in your prompts. Explicitly instruct the AI to ask questions and guide without making conclusions unless you specifically request them.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            What about different translations?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            You can compare different translations, but when studying a specific version like KJV, cite that translation specifically in your prompts for consistency.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            How do I check AI's claims?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Ask the AI for sources and cross-reference information with reliable biblical commentaries, theological resources, and scripture itself.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            Can I do this on mobile?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes—use shorter prompts and request "one question at a time" to pace the session appropriately for mobile interaction.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing Section -->
+    <section class="py-5 text-center">
+        <div class="container">
+            <div class="quote-box">
+                <p class="fs-4">"AI can illuminate the text; the Holy Spirit illuminates the heart."</p>
+            </div>
+            <h3 class="mt-4">Thank you!</h3>
+            <p>
+                <i class="fas fa-user me-2"></i>Presenter: Thomas Perdana
+                <a href="https://about.me/thomas.perdana" target="_blank" class="ms-2 text-light">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2025 AI Academy. All rights reserved.</p>
+            <div class="mt-3">
+                <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-light me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="#" class="text-light"><i class="fab fa-youtube fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation to cards when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply observer to cards
+        document.querySelectorAll('.card, .level-card, .persona-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
